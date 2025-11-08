@@ -5,6 +5,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# App runtime cache
+api/cache/
+api/**/cache/
+
+
 # Virtual environment
 venv/
 .env/
