@@ -1,0 +1,16 @@
+name: siting
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - geopandas
+  - osmnx
+  - networkx
+  - shapely
+  - pyproj
+  - rtree
+  - pip
+  - pip:
+      - fastapi
+      - uvicorn[standard]
+      - pulp

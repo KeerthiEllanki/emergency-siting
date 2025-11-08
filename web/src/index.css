@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 10px;
+  }
+
+/* ensures React-Leaflet always fills its parent */
+.leaflet-container {
+  flex: 1 1 auto;
+    width: 100%;
+    min-height: 100%;
+    display: flex !important;
+}
+
+/* the wrapper gives the map an explicit flex height anchor */
+.map-container { 
+  display: flex !important;
+  height: 95vh;
+  width: 50%;
+  margin-right: 30px;
+}
+
+h2{
+  font-size: 32px !important;
+}

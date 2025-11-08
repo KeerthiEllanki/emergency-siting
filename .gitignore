@@ -1,0 +1,86 @@
+# --- PYTHON / FASTAPI BACKEND ---
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env/
+env/
+.venv/
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+*.egg-info/
+.installed.cfg
+
+# Logs and database
+*.log
+*.sqlite3
+*.db
+
+# Cache and temp files
+*.pid
+*.seed
+*.bak
+*.swp
+*.swo
+*.tmp
+*.temp
+
+# Pytest / coverage / mypy
+.coverage
+.tox/
+.nox/
+.pytest_cache/
+.mypy_cache/
+coverage.xml
+htmlcov/
+
+# Jupyter / IPython
+.ipynb_checkpoints
+
+# Firebase service account keys (VERY IMPORTANT)
+firebase-service-account.json
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# VS Code / JetBrains IDEs
+.vscode/
+.idea/
+
+# --- NODE / REACT FRONTEND ---
+
+# Dependencies
+web/node_modules/
+
+# Build output
+web/dist/
+web/build/
+
+# Logs
+web/npm-debug.log*
+web/yarn-debug.log*
+web/yarn-error.log*
+
+# Environment variables
+web/.env
+web/.env.local
+web/.env.development.local
+web/.env.test.local
+web/.env.production.local
+
+# --- FIREBASE / GOOGLE CLOUD ---
+.firebase/
+.firebaserc
+# firestore emulator data
+firestore-debug.log
