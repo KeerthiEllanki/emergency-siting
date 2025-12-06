@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from typing import List, Literal, Optional
 
 class OptimizeRequest(BaseModel):
-    aoi: dict  # GeoJSON FeatureCollection
+    aoi: dict  
     p: int
     radius_m: float
     wheelchair_mode: bool

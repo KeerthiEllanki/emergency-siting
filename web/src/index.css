@@ -23,6 +23,7 @@ body,
   height: 95vh;
   width: 50%;
   margin-right: 30px;
+  z-index: 0;
 }
 
 h2{

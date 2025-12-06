@@ -7,11 +7,10 @@ from core.distance import compute_distance_matrix
 from core.mclp_solver import solve_mclp
 from models.request_models import OptimizeRequest
 
+# Runs the Maximal Covering Location Problem (MCLP) optimization.
+# Dynamically generates demand points inside AOI and computes actual coverage metrics.
 def run_mclp_model(req: OptimizeRequest):
-    """
-    Runs the Maximal Covering Location Problem (MCLP) optimization.
-    Dynamically generates demand points inside AOI and computes actual coverage metrics.
-    """
+    
     aoi_shape = shape(req.aoi["features"][0]["geometry"])
 
     # Map candidate types to OSM tags
@@ -32,7 +31,7 @@ def run_mclp_model(req: OptimizeRequest):
 
     # Generate grid of demand points within AOI
     minx, miny, maxx, maxy = aoi_shape.bounds
-    grid_spacing_m = req.radius_m / 2.0  # spacing = half the service radius
+    grid_spacing_m = req.radius_m / 2.0  
     deg_per_meter = 1 / 111320  # rough conversion
 
     x_coords = np.arange(minx, maxx, grid_spacing_m * deg_per_meter)
@@ -49,18 +48,17 @@ def run_mclp_model(req: OptimizeRequest):
         raise ValueError("No demand points generated within the AOI.")
 
     demand_gdf = gpd.GeoDataFrame(geometry=points, crs="EPSG:4326")
-    selected_age_groups = req.age_groups if hasattr(req, "age_groups") else []   # ➕ NEW LINE
-    age_brackets = ['<15', '15-35', '35-60', '60+']                              # ➕ NEW LINE
-    for bracket in age_brackets:                                                 # ➕ NEW BLOCK
-        demand_gdf[bracket] = np.random.randint(0, 100, size=len(demand_gdf))    # ➕ Simulated demographic data
+    selected_age_groups = req.age_groups if hasattr(req, "age_groups") else []   
+    age_brackets = ['<15', '15-35', '35-60', '60+']                              
+    for bracket in age_brackets:                                                 
+        demand_gdf[bracket] = np.random.randint(0, 100, size=len(demand_gdf))    
 
-    if selected_age_groups:                                                      # ➕ NEW BLOCK
+    if selected_age_groups:                                                      
         demand_gdf["weight"] = demand_gdf[selected_age_groups].sum(axis=1)
     else:
         demand_gdf["weight"] = 1.0
         
     demand_weights = demand_gdf["weight"].tolist()
-    # demand_weights = [1] * len(demand_gdf)
 
     # Compute distance matrix between demand points and candidates
     dm = compute_distance_matrix(demand_gdf.geometry, candidates_gdf.geometry)
@@ -69,7 +67,7 @@ def run_mclp_model(req: OptimizeRequest):
     selected_idxs = solve_mclp(demand_weights, dm, req.radius_m, req.p)
     selected_sites = candidates_gdf.iloc[selected_idxs]
 
-    # --- Compute actual coverage ---
+    # Compute actual coverage
     selected_geoms = selected_sites.geometry.to_list()
     demand_geoms = demand_gdf.geometry.to_list()
 
